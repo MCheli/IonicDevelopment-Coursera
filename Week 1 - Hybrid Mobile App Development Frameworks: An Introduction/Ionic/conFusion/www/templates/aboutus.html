@@ -19,16 +19,16 @@
             <div class="item item-divider">
                 Corporate Leadership
             </div>
-            <div class="item item-text-wrap">
-                <div class="list list-inset">
-                    <div class="item item-avatar" ng-repeat="leader in leaders">
-                        <img ng-src="{{baseURL+leader.image}}">
-                        <h2>{{leader.name}}</h2>
-                        <h3>{{leader.designation}}</h3>
-                        <p>{{leader.description}}</p>
-                    </div>
-                </div>
-            </div>
+            <ion-list class="list-inset">
+                <ion-item ng-repeat="leader in leaders" class="item-avatar">
+                    <img ng-src="{{baseURL+leader.image}}">
+                    <h2>{{leader.name}}</h2>
+                    <h3>{{leader.designation}}</h3>
+            <span class="item-text-wrap">
+              <p>{{leader.description}}</p>
+            </span>
+                </ion-item>
+            </ion-list>
         </div>
     </ion-content>
 </ion-view>
