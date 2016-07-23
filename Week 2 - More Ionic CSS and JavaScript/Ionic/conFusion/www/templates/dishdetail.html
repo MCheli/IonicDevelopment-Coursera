@@ -1,5 +1,19 @@
 <ion-view view-title="Dish Details">
+  <ion-nav-buttons side="secondary">
+    <div class="buttons">
+      <button class="button button-icon icon ion-ios-more"
+              ng-click="openPopover($event)"></button>
+    </div>
+  </ion-nav-buttons>
   <ion-content>
+    <script id="dish-detail-popover.html" type="text/ng-template">
+      <ion-popover-view>
+        <ion-list>
+          <ion-item ng-click="addFavorite(dish.id)">Add to Favorites</ion-item>
+          <ion-item ng-click="comment()">Add Comment</ion-item>
+        </ion-list>
+      </ion-popover-view>
+    </script>
     <div class="card">
       <div class="item item-body item-text-wrap">
         <img class="full-image" ng-src="{{baseURL+dish.image}}" alt="Uthappizza">

@@ -157,7 +157,7 @@ angular.module('conFusion.controllers', [])
     };
   }])
 
-  .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function ($scope, $stateParams, menuFactory, baseURL) {
+  .controller('DishDetailController', ['$scope', '$stateParams', '$ionicPopover', '$ionicModal', '$timeout', 'menuFactory', 'favoriteFactory', 'baseURL', function ($scope, $stateParams, $ionicPopover, $ionicModal, $timeout, menuFactory, favoriteFactory, baseURL) {
 
     $scope.baseURL = baseURL;
     $scope.dish = {};
@@ -174,6 +174,70 @@ angular.module('conFusion.controllers', [])
           $scope.message = "Error: " + response.status + " " + response.statusText;
         }
       );
+
+    $ionicPopover.fromTemplateUrl('dish-detail-popover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.popover.remove();
+    });
+    // Execute action on hide popover
+    $scope.$on('popover.hidden', function() {
+      // Execute action
+    });
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function() {
+      // Execute action
+    });
+    $scope.addFavorite = function (id) {
+      console.log("Dish ID is " + id);
+      favoriteFactory.addToFavorites(id);
+      $scope.closePopover();
+    }
+
+    $scope.commentData = {};
+
+    // Create the reserve modal that we will use later
+    $ionicModal.fromTemplateUrl('templates/comment.html', {
+      scope: $scope
+    }).then(function (modal) {
+      $scope.commentForm = modal;
+    });
+
+    // Triggered in the reserve modal to close it
+    $scope.closeComment = function () {
+      $scope.commentForm.hide();
+    };
+
+    // Open the reserve modal
+    $scope.comment = function () {
+      $scope.commentForm.show();
+    };
+
+    // Perform the reserve action when the user submits the reserve form
+    $scope.doComment = function () {
+      console.log('Doing comment', $scope.commentData);
+      $scope.commentData.date = new Date().toISOString();
+
+      $scope.dish.comments.push($scope.commentData);
+
+      // Simulate a reservation delay. Remove this and replace with your reservation
+      // code if using a server system
+      $timeout(function () {
+        $scope.closeComment();
+        $scope.closePopover();
+      }, 1000);
+    };
 
 
   }])
