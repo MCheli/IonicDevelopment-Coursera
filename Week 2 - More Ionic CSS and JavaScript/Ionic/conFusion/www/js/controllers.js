@@ -175,7 +175,7 @@ angular.module('conFusion.controllers', [])
         }
       );
 
-    $ionicPopover.fromTemplateUrl('dish-detail-popover.html', {
+    $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
       scope: $scope
     }).then(function(popover) {
       $scope.popover = popover;
