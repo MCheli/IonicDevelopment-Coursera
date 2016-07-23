@@ -208,7 +208,7 @@ angular.module('conFusion.controllers', [])
     $scope.commentData = {};
 
     // Create the reserve modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/comment.html', {
+    $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
       scope: $scope
     }).then(function (modal) {
       $scope.commentForm = modal;
