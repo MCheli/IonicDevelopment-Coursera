@@ -79,7 +79,9 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
                         templateUrl: 'templates/aboutus.html',
                         controller: 'AboutController',
                       resolve: {
-                        //TODO:
+                        leaders: ['corporateFactory', function(corporateFactory){
+                          return corporateFactory.query();
+                        }]
                       }
                     }
                 }
@@ -119,7 +121,9 @@ angular.module('conFusion', ['ionic', 'conFusion.controllers', 'conFusion.servic
                         templateUrl: 'templates/menu.html',
                         controller: 'MenuController',
                       resolve: {
-                        //tODO:
+                        dishes:  ['menuFactory', function(menuFactory){
+                          return menuFactory.query();
+                        }]
                       }
                     }
                 }
