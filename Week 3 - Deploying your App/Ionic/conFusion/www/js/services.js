@@ -32,16 +32,17 @@ angular.module('conFusion.services', ['ngResource'])
 
   }])
 
-  .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+  .factory('favoriteFactory', ['$resource', '$localStorage', 'baseURL', function ($resource, $localStorage, baseURL) {
     var favFac = {};
-    var favorites = [];
-
+    var favorites = $localStorage.getObject('favorites', '[]');
+    
     favFac.addToFavorites = function (index) {
       for (var i = 0; i < favorites.length; i++) {
         if (favorites[i].id == index)
           return;
       }
       favorites.push({id: index});
+      $localStorage.storeObject('favorites', favorites)
     };
 
     favFac.deleteFromFavorites = function (index) {
@@ -50,6 +51,7 @@ angular.module('conFusion.services', ['ngResource'])
           favorites.splice(i, 1);
         }
       }
+      $localStorage.storeObject('favorites', favorites)
     }
 
     favFac.getFavorites = function () {
@@ -73,17 +75,17 @@ angular.module('conFusion.services', ['ngResource'])
       },
       getObject: function(key,defaultValue) {
         return JSON.parse($window.localStorage[key] || defaultValue);
-      },
-      storeObjectArray: function(key, value) {
-        if(!$window.localStorage[key]){
-          $window.localStorage[key] = "[" + JSON.stringify(value) + "]";
-        }else {
-          if(JSON.parse($window.localStorage[key]) ){
-
-          }
-        }
-
       }
+      // storeObjectArray: function(key, value) {
+      //   if(!$window.localStorage[key]){
+      //     $window.localStorage[key] = "[" + JSON.stringify(value) + "]";
+      //   }else {
+      //     if(JSON.parse($window.localStorage[key]) ){
+      //
+      //     }
+      //   }
+      //
+      // }
     }
   }])
 

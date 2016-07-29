@@ -73,7 +73,7 @@ angular.module('conFusion.controllers', [])
 
   })
 
-  .controller('MenuController', ['$scope', '$localStorage', 'menuFactory', 'favoriteFactory', 'dishes', 'baseURL', '$ionicListDelegate', function ($scope, $localStorage, menuFactory, favoriteFactory, dishes, baseURL, $ionicListDelegate) {
+  .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory', 'dishes', 'baseURL', '$ionicListDelegate', function ($scope, menuFactory, favoriteFactory, dishes, baseURL, $ionicListDelegate) {
 
     $scope.baseURL = baseURL;
 
@@ -111,7 +111,6 @@ angular.module('conFusion.controllers', [])
 
     $scope.addFavorite = function (index) {
       console.log("index is " + index);
-      $localStorage.storeObjectArray('favorites',{'id':index});
       favoriteFactory.addToFavorites(index);
       $ionicListDelegate.closeOptionButtons();
     }
